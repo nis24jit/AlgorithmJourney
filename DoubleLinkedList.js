@@ -1,84 +1,78 @@
+var head = null;
+var tail = null;
+var length = 0;
+
+
+function Node(element) {
+    this.element = element;
+    this.next = null;
+    this.previous = null;
+}
+
 function DoublyLinkedList() {
-    var Node = function(element){
-        this.element = element;
-        this.next = null;
-        this.prev = null; //NEW
-    };
-    var length = 0;
-    var head = null;
-    var tail = null; //NEW
 
+    this.insert = function (position, item) {
 
-    this.insert = function(position, element){
+        var node = new Node(item);
+        var current = head;
+        var previous;
+        var index = 0;
+        if (position === 0) {
 
-       var current = head,
-            previous,
-            index = 0;
-        var node = new Node(element);
-        if(position === 0){
-
-            if(head ===null){
+            if (head === null) {
                 head = node;
                 tail = node;
-            }else{
+            } else {
 
                 node.next = current;
-                current.prev = node;
+                current.previous = node;
                 head = node;
-
 
             }
 
-        }else if(position === length){
+        } else if (position === length) {
 
             current = tail;
             current.next = node;
-            node.prev = current;
+            node.previous = current;
             tail = node;
 
+        } else {
 
-        }else{
-
-            while(index++ < position){
-
+            while (index++ < position) {
                 previous = current;
                 current = current.next;
-
             }
 
-            node.next = current;
             previous.next = node;
-            node.prev = previous;
-            current.prev = node;
+            node.previous = previous;
+            node.next = current;
+            current.previous = node;
+
 
         }
+
         length++;
+
     }
 
-
-
-    this.print = function(){
+    this.print = function () {
 
         var current = head;
-        while(current.next!==null){
+        while (current.next) {
             console.log(current.element);
             current = current.next;
         }
-        console.log(current.element);
-
+        console.log(current.element)
     }
 
 
-//methods here
 }
 
-
-
-var dd = new DoublyLinkedList();
-
-dd.insert(0,10);
-dd.insert(1,20);
-dd.insert(2,30);
-dd.insert(2,100);
-dd.insert(3,40);
-dd.print();
+var ss = new DoublyLinkedList();
+ss.insert(0, 10);
+ss.insert(1, 20);
+ss.insert(2, 30);
+ss.insert(3, 40);
+ss.insert(3, 100);
+ss.print();
